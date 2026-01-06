@@ -1,18 +1,19 @@
-from flask import Flask, request, jsonify
+from flask import Flask, jsonify
 
 app = Flask(__name__)
 
-users = []
+@app.route("/")
+def home():
+    return jsonify({
+        "message": "Python Backend API is running successfully 🚀"
+    })
 
-@app.route("/users", methods=["GET"])
-def get_users():
-    return jsonify(users)
-
-@app.route("/users", methods=["POST"])
-def add_user():
-    data = request.json
-    users.append(data)
-    return {"message": "User added successfully"}, 201
+@app.route("/health")
+def health():
+    return jsonify({
+        "status": "OK",
+        "message": "Backend is healthy 💚"
+    })
 
 if __name__ == "__main__":
     app.run(debug=True)
